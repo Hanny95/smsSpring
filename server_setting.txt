@@ -1,0 +1,310 @@
+<★★★Server Setting★★★>
+
+Linux : 
+centOS, ubuntu
+
+가상머신 : 
+Virtual-box
+VMWare
+
+
+
+
+<1. Virtual-box 2가지 다운로드 >
+
+https://www.virtualbox.org/wiki/Downloads
+
+1 ) VirtualBox 6.1.26 platform packages
+ Windows hosts
+
+2 ) <추가기능(확장팩)>   : 보안, 포트 인식 ? 
+VirtualBox 6.1.26 Oracle VM VirtualBox Extension Pack
+ All supported platforms 
+
+
+< 2. 우분투다운 > 
+
+https://ubuntu.com/download/desktop/thank-you?version=21.04&architecture=amd64
+
+20.04 버전 다운
+
+<3 java (jdk)다운 및 환경 설정 >
+
+-- 아래의 블로그 참조 --
+https://marobiana.tistory.com/163
+
+환경변수 > 변수명 JAVA_HOME 있는지 확인
+
+-- 아래부분 제외 -- 
+(변수 이름은 대문자로!!!)
+변수 이름: CLASSPATH
+변수 값: %JAVA_HOME%\lib
+------------------
+
+
+변수환경 설정 후 프롬프트에서 java -version 입력 후 설치 결과 확인 
+
+파일 위치 및 크기 : 드라이브에 우분투 파일 만들고 파일 지정  
+
+파티션 만든 후 저장소 > 비어있음 클릭 > 광학 드라이브 디스크 모양 클릭 > 광학 디스크 선택 > 우분투 다운로드 파일 선택 & 확인
+
+시작 클릭 > 영어 언어 설정 > continue 누르고 install
+
+name : chh
+password : 1234
+메모리 : 2048 로 변경
+
+다운로드 완료 후 enter누르고 재부팅 기다리고 계정 로그인
+
+- software update (if have)
+
+show application > terminal > add to favorite
+
+맨 우측에 화살표 버튼 > power off > Restart   ** 초반엔 설정할때마다 재부팅 지속적으로 필수!! **
+
+화면해상도 display > Resolution (1440 x 990)
+설정을 하고나서 다시 재부팅해주기 (Restart)
+
+Terminal > admin, root권한 설정 (계정과 root 비번 통일함,,)
+sudo passwd : 관리자 계정 비번 초기화   ** 패스워드가 화면에 나타나지 않음... 
+root 비번 설정 : 1234
+
+su root > 비밀번호 입력 > root 계정으로 변경
+exit : root계정 빠져나오기 
+
+sudo apt update : 최신버전으로 업데이트 > 습관적으로 해줌
+sudo apt-get update : 
+
+suto apt upgrade ( 이것 또한 습관적으로,,)
+exit 화면빠져나오기
+
+복구 CD 만들기 (스냅샷)
+1. power off 화면끄기 
+2. 햄버거 옵션에서 스냅샷 > 현재상태 > 찍기 > 이름 설정 (우분투 초기 설정완료)
+(* 복구 원할 시 이름 선택 > 복원 클릭)
+
+< 한글 및 한글입력기 설정>
+
+우분투 언어 설정
+show application > Language > 설치 > install/Remove language
+
+show application > Region & Language > 언어 > 한국어 select > Logout > 재부팅 
+>예전 이름 유지 선택 
+(한글입력기 설정)
+입력 소스 추가 > 한국어(Hangul) > Logout > 찍기 > 이름 : 한국어 설정완료
+
+
+-IP 설정
+
+설정 > 네트워크 > 어댑터1 > 다음에연결됨 : 어댑터에 브리지
+IP찾기 : 
+client : 프롬프트명령창 > ipconfig
+Server : 터미널 > ifconfig
+
+Terminal에서 설치 > sudo apt install net-tools 입력 > 암호 입력 
+sudo apt update
+> sudo atp install openssh-server > y > sudo systemctl status ssh
+ * ctrl + z (빠져나오기)
+
+gedit : 리눅스에 제공하는 메모장같은거..
+> sudo gedit /etc/ssh/sshd_config
+permit RootLogin 앞에 #(주석) 제거 후 progibit-password지우고 permitRootLogin yes 입력하고 저장 
+> sudo service ssh restart
+
+내계정찾기 
+chh > 다른위치 > home > 내계정
+etc : 대부분의 패키지 설치된곳
+
+sudo
+
+IP
+client 192.168.0.38
+Server 192.168.0.79
+
+<Putty 설치>
+https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+64-bit x86: putty-64bit-0.76-installer.msi  >>> 설치 
+
+Session : Host Name에  Server IP 주소 입력 > open 클릭 > 계정 입력(chh & 1234) 
+
+서버 power off 후에 스냅샷 찍기 > 이름 설정(SSH 설정완료)
+
+SSH (시큐어셀) 
+- SSH-server 설정
+- SSH-Client 설정
+
+ 
+Java 설치 (ver 1.8)  >>> (2가지)
+terminal > 
+sudo app install openjdk-8-jdk-headless
+sudo app install openjdk-8-jdk
+
+
+tomcat 설치
+sudo apt install tomcat9
+
+설치 확인 : sudo service tomcat9 status (초록글자 active인지 확인)
+윈도우 브라우저 >> serverIP 주소:8080 
+
+dir (디렉토리 확인)
+mkdir (디렉토리 생성:새폴더)
+cd (change directory) > 안에 들어감
+
+
+sudo mkdir -p www/ROOT (p옵션)
+cd www/ROOT/ 
+sudo gedit index.jsp     >> 이 파일이 없으면 새로 만들어줌 
+
+ls(list)
+ls -al : 숨겨져있는 모든 파일 나옴
+
+
+sudo chmod 777 server.xml(파일이름)   > 관리자 권한 변경(모두접근가능) 
+
+**리눅스 명령어  >> https://gomguard.tistory.com/73
+
+
+/ > 루트 : 최상위로 올라감,
+tomcat server.xml 수정 필요
+sudo gedit /etc/tomcat9/server.xml
+
+아래부분 변경 (152라인)
+<Host name="localhost" appBase="/home/chh/www"  
+
+저장하고 나와서
+sudo service tomcat9 restart 
+sudo service tomcat9 status
+active 상태인지 확인 > 웹사이트가서 localhost:8080 입력 후 확인 
+
+
+
+
+
+*** 디렉토리 생성 시 
+
+
+루트 디렉토리 생성
+mkdir ROOT 
+ls -al
+
+인덱스 파일 루트로 이동
+sudo mv index.jsp ./ROOT/
+
+/ 최상위 디렉토리
+./ 현재 디렉토리
+../ 한단계위 
+
+mv 타깃파일(파일이름) 이동하고싶은곳
+
+rm (삭제)
+ex ) sudo rm -r 파일명/     
+
+http : 하이퍼링크 
+FTP : file transfer protocol (서버와 클라이언트 파일전송)
+vsftpd : vsftpd는 UNIX 시스템에서 사용할 수 있는 free FTP 서버(라이센스는 GPL)이다. vsftpd가 내세우고 있는 것은 보안, 성능, 안정성이다.
+설치
+sudo apt install vsftpd
+확인
+sudo service vsftpd status
+
+sudo gedit /etc/vsftpd.conf 파일열고 수정
+31 / 35 라인 주석해제 
+# 업로드 가능
+write_enable=YES
+local_umask=022  >> 기본권한(077)이 아니라 022로 보안을 변경
+https://webdir.tistory.com/199  (참고자료)
+
+권한 풀어주기 : sudo chmod 777 www(폴더이름)
+
+파일질라 다운받기
+filezilla-project.org
+
+파일 > 사이트 관리자 > New site > 호스트 : server IP > 사용자 & 비밀번호 입력
+
+** 디렉토리 생성시 
+sudo mkdir
+mkdir 
+
+권한설정 : chmod 777보다 강력 ?! 
+(참고자료)
+https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=minki0127&logNo=220729799731
+setfacl 
+
+**** sudo chmod -R 777 www (안에 파일까지 일일이 잠금해제 안해도됌)
+
+
+
+r : read
+w : write (쓰기, 수정, 삭제)
+x : excute (실행)
+
+d : 디렉토리
+- : 파일 
+3개씩나눠서 (계정 / 그룹 / 나머지) 
+
+
+sudo rm ROOT.war
+sudo service tomcat9 restart
+
+
+<DB 설치>
+
+sudo apt update로 시작 
+sudo apt install mariadb-server 설치 
+sudo service mariadb status  설치 확인 
+
+sudo mysql_secure_installation 
+mysql root 비밀번호 생성 후 
+anonymous user ? > n
+disallow login ? > n
+remove database and access > y
+reload privilege table > y
+
+mariaDB 설치 완료 !! 
+
+접근
+sudo mysql -u root -p
+mysql 비번입력
+show databases;
+use mysql;
+show tables;
+select host, user, password from user;
+
+grant all privileges on *.* to 'root'@'192.168.0.38'
+identified by '1234';
+
+select host, user, password from user;
+sudo service mysql restart
+ 
+
+cd /etc/mysql/mariadb.conf.d
+ls -al
+sudo gedit 50-server.cnf 파일 열어서 아래 내용 수정
+bind-address (28라인) > 0.0.0.0
+
+sudo service mysql restart
+sudo service mysql status
+
+하이디 가서 새로운 계정 (server) 만듦 > 호스트 : server Ip 
+
+스냅샷 > DB 설정완료 
+
+<MariaDb jar 파일 다운 >
+https://downloads.mariadb.com/Connectors/java/connector-java-2.6.2/
+
+
+<Spring 설정>
+이클립스에서 market 가서 STS 입력후 spring 다운  > new project > Spring Legacy Project 
+> Spring MVC project 
+
+pom.xml : 기본설정파일
+객체생성하는 코드 작성
+
+11 > 1.8
+12라인 > 5.2.9
+141,142 > 1.8
+
+스프링 한글설정 > https://gmlwjd9405.github.io/2019/01/01/spring-utf8.html
+> views 파일 밑에 web.xml 마지막 부분에다가 삽입 (filter)
+스프링 > DB연동하기 : 구글링 : maven repository 
